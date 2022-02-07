@@ -3,10 +3,12 @@ from slider.models import Slider
 from priceAPP.models import PriceCard, PriceTable
 from .forms import OrderForm
 from .models import Order
+from telebot.sendmessage import sendTelegram
 
 
 def first_page(request):
     slider_list = Slider.objects.all()
+    # Костыль, переделать в динам.
     price_card_1 = PriceCard.objects.get(pk=1)
     price_card_2 = PriceCard.objects.get(pk=2)
     price_card_3 = PriceCard.objects.get(pk=3)
@@ -26,4 +28,6 @@ def thanks_page(request):
     phone = request.POST['phone']
     element = Order(order_name=name, order_phone=phone)
     element.save()
+    # После сохранения вызывается функция по отправке в чат уведомления
+    sendTelegram()
     return render(request, './thanks.html', {'name': name, 'phone': phone})

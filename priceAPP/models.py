@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class PriceCard(models.Model):
+    pc_title = models.CharField(max_length=50, verbose_name='Имя', default='-')
     pc_value = models.CharField(max_length=50, verbose_name='Цена')
     pc_description = models.CharField(max_length=50, verbose_name='Описание')
 
